@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>计算器</title>
+  <style type="text/css">
+    body{
+      padding: 0;
+      margin: 0;
+      background-color: aquamarine;
+    }
+    #calculater{
+      position: absolute;
+      width: 1200px;
+      height: 620px;
+      left: 50%;
+      top: 50%;
+      margin-left: -600px;
+      margin-top: -310px;
+    }
+    #calculater #c_title h2{
+      text-align: center;
+      font-size: 33px;
+      font-family: "微软雅黑";
+      color: #666;
+      line-height: 30px;
+    }
+    #c_text{
+      width: 1000px;
+      margin: auto;
+    }
+    #calculater #c_text #text{
+      padding-right: 10px;
+      width:1000px ;
+      height: 50px;
+      font-size: 25px;
+      font-family: "微软雅黑";
+      color: #666666;
+      text-align: right;
+      border: double 1px;
+    }
+    #calculater #c_value{
+      width: 1080px;
+      height: 408px;
+      margin: 20px auto;
+    }
+    #calculater #c_value ul{
+      margin: 0;
+    }
+    #calculater #c_value ul li{
+      margin: 10px;
+      list-style: none;
+      float: left;
+      width: 180px;
+      height: 80px;
+      line-height: 80px;
+      text-align: center;
+      background-color: darkgray;
+      border: 1px solid black;
+      font-size: 30px;
+      font-family: "微软雅黑";
+      color: black;
+      box-shadow: 5px 5px 30px rgba(0,0,0,0.4);
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      -moz-user-select: none;
+
+    }
+    #calculater #c_value ul li:active{
+      background-color: darkorange;
+    }
+    #calculater #c_value ul li:hover{
+      cursor: pointer;
+      color: #ebebeb;
+    }
+    #calculater #c_value ul .c_blue{
+      background-color: cornflowerblue;
+      color: #000000;
+    }
+    #calculater #c_value ul .c_gray{
+      background-color:darkgray ;
+      color: #000000;
+    }
+    #calculater #c_value ul .c_orang{
+      background-color: chocolate;
+      color: #000000;
+    }
+
+
+  </style>
+  <script type="text/javascript">
+    var Boo=false;//判断是否按下计算符号
+    //var ope;//存储计算符号的变量
+    //获取数字
+    function get(Num) {
+      var result=document.getElementById('text');
+      if (Boo) {
+        result.value=Num;
+        Boo=false;//若接受过运算符，文本框清零
+      }else{
+        if (result.value=='0') {
+          result.value=Num;
+        } else{
+          result.value+=Num;
+        }
+      }
+    }
+    //避免出现两个小数点
+    /*function point () {
+        var result=document.getElementById('text');
+        if (result.value.indexOf('.')==-1) {
+            result.value+='.';
+        }
+    }*/
+    //清零，重新加载页面
+    function clearText() {
+      location.replace(location)
+    }
+    //退格
+    function goBack() {
+      var result=document.getElementById('text');
+      result.value=result.value.substring(0,result.value.length-1);
+      if (result.value=='') {
+        result.value=0;
+      }
+    }
+    //+，-，*，/，%
+    function equals(){
+      var text  = document.getElementById('text');
+      if(text.value == ""){
+        alert("您还没有输入任何值");
+      }else{
+        text.value  = eval(text.value);   //eval(您要计算的字符串);
+      }
+    }
+    //负一次方
+    function Negatives(){
+      var text  = document.getElementById('text');
+      if(text.value == ""){
+        alert("您还没有输入任何值");
+      }else{
+        text.value = 1/text.value;
+      }
+    }
+    //ln
+    function lns(){
+      var text  = document.getElementById('text');
+      if(text.value == ""){
+        alert("您还没有输入任何值");
+      }else{
+        text.value =  Math.log(text.value);  //Math 对象用于执行数学任务,log(x)返回数的自然对数（底为e)
+      }
+    }
+    //sin
+    function sins(){
+      var text  = document.getElementById('text');
+      if(text.value == ""){
+        alert("您还没有输入任何值");
+      }else{
+        text.value =  Math.sin(text.value);  //Math 对象用于执行数学任务
+      }
+    }
+    //平方根
+    function sqrts(){
+      var text  = document.getElementById('text');
+      if(text.value == ""){
+        alert("您还没有输入任何值");
+      }else{
+        text.value =  Math.sqrt(text.value);
+      }
+    }
+
+
+  </script>
+
+</head>
+<body>
+<div id="calculater">
+  <div id="c_title"><h2>计算器</h2></div>
+  <div id="c_text">
+    <input type="text" id="text" value="0" readonly="readonly"/>
+  </div>
+  <div id="c_value">
+    <ul>
+      <li onclick="clearText()" class="c_orang">AC</li>
+      <li onclick="goBack()" class="c_orang">←</li>
+      <li onclick="clearText()" class="c_orang">CE</li>
+      <li onclick="get('%')" class="c_blue">%</li>
+      <li onclick="sins()" class="c_blue">sin</li>
+      <li onclick="get(7)">7</li>
+      <li onclick="get(8)">8</li>
+      <li onclick="get(9)">9</li>
+      <li onclick="get('*')" class="c_blue">×</li>
+      <li onclick="lns()" class="c_blue">ln</li>
+      <li onclick="get(4)">4</li>
+      <li onclick="get(5)">5</li>
+      <li onclick="get(6)">6</li>
+      <li onclick="get('/')" class="c_blue">÷</li>
+      <li onclick="sqrts()" class="c_blue">√</li>
+      <li onclick="get(1)">1</li>
+      <li onclick="get(2)">2</li>
+      <li onclick="get(3)">3</li>
+      <li onclick="get('+')" class="c_blue">+</li>
+      <li onclick="Negatives()" class="c_blue">1/x</li>
+      <li onclick="get('00')">00</li>
+      <li onclick="get(0)" class="c_gray">0</li>
+      <li onclick="get('.')" class="c_gray">.</li>
+      <li onclick="get('-')" class="c_blue">-</li>
+      <li onclick="equals()" class="c_orang">=</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
